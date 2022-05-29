@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+
+import React from "react";
+import Routes from "./routes/route";
+import { BrowserRouter } from "react-router-dom";
+import Context from "./store/Context";
+import {Header} from "./components";
+import AppColors from "./styles/AppColors";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider>
+      <BrowserRouter>
+        <div css={{backgroundColor: AppColors.lightgrey}}>
+          <div
+            css={{
+              // maxWidth: 480,
+              margin: "0 auto",
+              display: "block",
+              backgroundColor: "white",
+            }}
+          >
+            <Header />
+            <Routes />
+          </div>
+        </div>
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 

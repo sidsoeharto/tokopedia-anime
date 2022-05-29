@@ -1,0 +1,96 @@
+/** @jsxImportSource @emotion/react */
+
+import React, { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { Anime } from "../models/anime";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useNavigate, useParams } from "react-router-dom";
+import { removeFromCollection, updateToCollection } from "../store/actions";
+import Context from "../store/Context";
+import AppColors from "../styles/AppColors";
+
+const WIDTH = window.innerWidth;
+
+const AnimeCard = ({ data, showDeleteButton }) => {
+  const navigate = useNavigate();
+  const [state, dispatch] = useContext(Context.AppContext);
+  const params = useParams();
+
+  const onDelete=()=>{
+    if(window.confirm(`Are you sure want to delete ${data.title.english??data.title.native}?`)){
+      if(data.collectionOf?.length===1){
+        dispatch(removeFromCollection(data.id))
+      } else {
+        const updatetedData = state.collections.map((v) => {
+          if (v.id === data.id) {
+            const collectionOf = data?.collectionOf?.filter((v)=> v!==params.name)
+            return { ...data, collectionOf };
+          } else {
+            return v;
+          }
+        });
+        dispatch(updateToCollection(updatetedData));
+      }
+    }
+  }
+
+  return (
+    <div
+      css={{
+        margin: 16,
+        borderRadius: 20,
+        backgroundColor: AppColors.gray200,
+        filter: "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
+        cursor: "pointer",
+      }}
+      onClick={() => navigate(`/anime/${data.id}`, {state: {title: 'Detail Anime'}})}
+    >
+      <div>
+        <img
+          alt={data.title.native}
+          src={data.coverImage?.large}
+          css={{
+            width: "100%",
+            height: WIDTH > 480 ? WIDTH/2 : '100%',
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+            objectFit: "cover",
+          }}
+        />
+        <span></span>
+      </div>
+      <div
+        css={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: 8,
+          marginBottom: 24,
+          padding: 16,
+        }}
+      >
+        <div>
+          <span css={{ display: "block", fontWeight: "bold" }}>
+            {data.title.english ?? data.title.native}
+          </span>
+          <span css={{ fontSize: 12, color: "gray" }}>
+            {data.duration} minutes
+          </span>
+        </div>
+        {showDeleteButton && (
+          <FontAwesomeIcon
+            icon={solid('trash')}
+            color={"lightgray"}
+            size="2x"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete()
+            }}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default AnimeCard;
