@@ -6,11 +6,11 @@ import AppColors from "../styles/AppColors";
 const Pagination = ({ pagination,currentPage, onClick }) => {
   return (
     <div css={{ display: "flex", justifyContent: "space-around", margin: 16 }}>
-      {pagination?.map((v, i) => {
-      const isActive = currentPage === v
+      {pagination?.map((el, idx) => {
+      const isActive = currentPage === el
         return (
           <div
-            key={i.toString()}
+            key={idx.toString()}
             css={{
               padding: '8px 12px',
               borderRadius: 12,
@@ -19,13 +19,14 @@ const Pagination = ({ pagination,currentPage, onClick }) => {
               justifyContent: "center",
               ...isActive && {
                 backgroundColor: AppColors.pink400,
-              }
+              },
+              cursor: el !== "..." ? 'pointer' : 'not-allowed',
             }}
             onClick={() => {
-              if (v !== "...") onClick(v);
+              if (el !== "...") onClick(el);
             }}
           >
-            <span css={{color: isActive? AppColors.gray100 : AppColors.pink400, fontWeight: 'bold'}}>{v}</span>
+            <span css={{color: isActive? AppColors.gray100 : AppColors.pink400, fontWeight: 'bold'}}>{el}</span>
           </div>
         );
       })}
