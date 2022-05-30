@@ -63,15 +63,19 @@ const AnimeCard = ({ data, showDeleteButton }) => {
           </span>
         </div>
         {showDeleteButton && (
-          <FontAwesomeIcon
-            icon={solid('trash')}
-            color={"lightgray"}
-            size="2x"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete()
-            }}
-          />
+          <div
+            css={{display: "flex", justifyContent: 'center', alignItems: 'center'}}
+          >
+            <FontAwesomeIcon
+              icon={solid('trash')}
+              color={AppColors.gray400}
+              size="1x"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete()
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

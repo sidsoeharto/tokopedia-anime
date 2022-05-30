@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { ANIME_DETAIL } from "../queries/anime-query";
 import {
-  // AddToCollectionModal, 
+  AddToCollectionModal, 
   AnimeInfo, 
   AppButton, 
   CollectionOf, 
@@ -29,17 +29,62 @@ const AnimeDetail = (props) => {
   if (loading) return <Loading />;
 
   return (
-    <div>
+    <div
+      css={{
+        position: 'relative',
+      }}
+    >
       <div css={{ 
         display: 'flex',
         flexDirection: WIDTH > 480 ? 'row' : 'column', 
         padding: 16 
       }}>
-        <img
-          alt={media.title.native}
-          src={media.coverImage?.large}
-          css={{ width: "100%", borderRadius: 16, margin: 32 }}
-        />
+        <div
+          css={{
+            height: "100%",
+            width: "100%", 
+            maxWidth: '400px',
+            margin: WIDTH > 480 ? 32 : 2,
+          }}
+        >
+          <img
+            alt={media.title.native}
+            src={media.coverImage?.large}
+            css={{ 
+              width: '100%',
+              objectFit: "cover",
+              borderRadius: 16, 
+              margin: 'auto',
+              boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',
+            }}
+          />
+          <div css={{ 
+            marginTop: 16,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '0.2rem 0.5rem',
+            flexDirection: WIDTH > 480 ? 'row' : 'column',  
+          }}>
+            <AppButton
+              title="Add to collection"
+              style={{ 
+                width: "100%",
+                padding: '0.75rem',
+              }}
+              onClick={() => setOpen(true)}
+            />
+            <AppButton
+              title="Remove from collection"
+              style={{ 
+                width: "100%", 
+                padding: '0.75rem',
+                backgroundColor: "gray" 
+              }}
+              onClick={() => setOpen(true)}
+            />
+          </div>
+        </div>
+        
         <div
           css ={{
             display: 'flex',
@@ -60,26 +105,14 @@ const AnimeDetail = (props) => {
           )}
           <AnimeInfo data={media} />
           <div dangerouslySetInnerHTML={{ __html: media.description }} />
-          <div css={{ marginTop: 16 }}>
-            <AppButton
-              title="Add to collection"
-              style={{ width: "100%" }}
-              onClick={() => setOpen(true)}
-            />
-            <AppButton
-              title="Remove from collection"
-              style={{ width: "100%", backgroundColor: "gray" }}
-              onClick={() => setOpen(true)}
-            />
-          </div>
         </div>
         
       </div>
-      {/* <AddToCollectionModal
+      <AddToCollectionModal
         data={{ ...media, collectionOf: isCollection?.collectionOf }}
         isOpen={open}
         onRequestClose={() => setOpen(false)}
-      /> */}
+      />
     </div>
   );
 };

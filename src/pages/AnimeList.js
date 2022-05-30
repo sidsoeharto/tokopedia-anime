@@ -12,8 +12,6 @@ import {Pagination, Loading} from "../components";
 
 const WIDTH = window.innerWidth;
 
-console.log(WIDTH);
-
 const AnimeList = (props) => {
   const [state, dispatch] = useContext(Context.AppContext);
   const [variables, setVariables] = useState({

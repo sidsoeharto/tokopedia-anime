@@ -13,7 +13,7 @@ const Header = () => {
 
   const showBackIcon = location.pathname !== "/";
   return (
-    <div css={{ position: "sticky", top: 0, zIndex: 5}}>
+    <div css={{ position: "sticky", top: 0, zIndex: 3}}>
       <div
         css={{
           height: "5vh",
@@ -30,6 +30,7 @@ const Header = () => {
             css={{ 
               marginRight: 12 ,
               color: AppColors.gray100,
+              cursor: 'pointer',
             }}
             onClick={() => navigate(-1)}
           />
@@ -51,6 +52,7 @@ const Header = () => {
               border: 'none',
               display: 'flex',
               flexDirection: 'row',
+              cursor: 'pointer',
             }}
             onClick={() =>
               navigate("/collections", { state: { title: "Collection List" } })
@@ -58,7 +60,11 @@ const Header = () => {
           >
             <FontAwesomeIcon
               icon={solid("heart")}
-              css={{ marginLeft: 12, marginRight: 2, display: "inline-block"}}
+              css={{ 
+                marginLeft: 12, 
+                marginRight: 2, 
+                display: "inline-block",
+              }}
               size="2x"
               color={AppColors.pink300}
             />
