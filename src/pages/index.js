@@ -1,5 +1,7 @@
 import AnimeList from "./AnimeList";
+import AnimeDetail from "./AnimeDetail";
 
 export {
-  AnimeList
+  AnimeDetail,
+  AnimeList,
 }
