@@ -14,7 +14,6 @@ const WIDTH = window.innerWidth;
 const CollectionList = (props) => {
   const [state, dispatch] = useContext(Context.AppContext);
   const [open, setOpen] = useState(false);
-  // const [openDelete, setOpenDelete] = useState(false);
   const [deleteName, setDeleteName] = useState('');
 
   const confirmDelete = (name) => {

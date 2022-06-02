@@ -9,8 +9,6 @@ import { removeFromCollection, updateToCollection } from "../store/actions";
 import Context from "../store/Context";
 import AppColors from "../styles/AppColors";
 
-const WIDTH = window.innerWidth;
-
 const AnimeCard = ({ data, showDeleteButton }) => {
   const navigate = useNavigate();
   const [state, dispatch] = useContext(Context.AppContext);

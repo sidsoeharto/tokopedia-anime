@@ -1,12 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Modal from "react-modal";
-import { addCollection } from "../store/actions";
-import Context from "../store/Context";
 import AppColors from "../styles/AppColors";
 import AppButton from "./AppButton";
-import AppInput from "./AppInput";
 
 const WIDTH = window.innerWidth;
 
@@ -21,12 +18,12 @@ const DeleteCollectionModal = ({ isOpen, name, onRequestClose, onDelete }) => {
     >
       <h2 css={styles.popupTitle}>Delete Collection</h2>
       <div css={styles.popupInput}>
-        <h4 css={styles.popupContentTitle}>Are you sure you want to delete item?</h4>
+        <h4 css={styles.popupContentTitle}>Are you sure you want to delete {name}?</h4>
       </div>
       <AppButton 
         title="Cancel" 
         onClick={onRequestClose} 
-        style={{ width: "50%" }} 
+        style={{ width: "50%", backgroundColor: AppColors.gray400, }} 
       />
       <AppButton 
         title="Yes" 
@@ -76,7 +73,8 @@ const styles = {
   },
   popupContentTitle: {
     fontWeight: "bold", 
-    fontSize: 16
+    fontSize: 16,
+    textAlign: 'center',
   },
   popupContent: { 
     display: "flex", 
