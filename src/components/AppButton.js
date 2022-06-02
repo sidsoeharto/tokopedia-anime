@@ -15,6 +15,7 @@ const AppButton = ({ title, onClick, style, icon }) => {
           alignItems: 'center',
           margin: '8px 0px',
           cursor: 'pointer',
+          fontFamily: 'Overpass',
           ...style
         }}
       >

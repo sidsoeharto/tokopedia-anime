@@ -3,7 +3,7 @@
 import React from "react";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, matchPath } from "react-router-dom";
 import AppColors from "../styles/AppColors";
 
 const Header = () => {
@@ -12,6 +12,12 @@ const Header = () => {
   const newLocation = { ...location };
 
   const showBackIcon = location.pathname !== "/";
+  const showEditButton = !!matchPath({
+    path: "/collections/:name",
+    exact: true,
+    strict: false
+  }, location.pathname);
+
   return (
     <div css={{ position: "sticky", top: 0, zIndex: 3}}>
       <div
@@ -21,30 +27,45 @@ const Header = () => {
           backgroundColor: AppColors.green600,
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           filter: "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
         }}
       >
-        {showBackIcon && (
-          <FontAwesomeIcon
-            icon={solid("arrow-left")}
-            css={{ 
-              marginRight: 12 ,
-              color: AppColors.gray100,
-              cursor: 'pointer',
-            }}
-            onClick={() => navigate(-1)}
-          />
-        )}
-        <p
+        <div
           css={{
-            fontSize: 18,
-            fontWeight: "bolder",
-            color: AppColors.gray100,
-            flex: 1,
+            background: 'none',
+            border: 'none',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
-          {newLocation.state?.title ?? "AnimeList"}
-        </p>
+          {showBackIcon && (
+            <FontAwesomeIcon
+              icon={solid("arrow-left")}
+              css={{ 
+                marginRight: 12 ,
+                color: AppColors.gray100,
+                display: 'inline-flex',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate(-1)}
+            />
+          )}
+          <span
+            css={{
+              marginTop: 2,
+              fontSize: 18,
+              fontWeight: "bolder",
+              display: "inline-flex",
+              alignItems: 'center',
+              color: AppColors.gray100,
+            }}
+          >
+            {newLocation.state?.title ?? "AnimeList"}
+          </span>
+        </div>
+        
         {!showBackIcon && (
           <button
             css={{
@@ -70,6 +91,40 @@ const Header = () => {
             />
           </button>
         )}
+        {
+          showEditButton && (
+            <button
+              css={{
+                background: AppColors.pink400,
+                color: AppColors.gray100,
+                borderRadius: 6,
+                padding: '0.625rem 1.25rem',
+                border: 'none',
+                display: 'flex',
+                flexDirection: 'row',
+                cursor: 'pointer',
+                fontSize: 16,
+                alignItems: 'center',
+                fontFamily: 'Overpass',
+              }}
+            >
+              <FontAwesomeIcon
+                icon={solid("edit")}
+                css={{  
+                  marginRight: 8, 
+                  display: "inline-flex",
+                }}
+                size="1x"
+                color={AppColors.gray100}
+              />
+              <span 
+                css={{marginTop: 3}}
+              >
+                Edit Collection
+              </span>
+            </button>
+          )
+        }
       </div>
     </div>
   );

@@ -73,30 +73,13 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      css={{
-        display: "flex",
-        flexDirection: "column",
-        justifyConent: "center",
-        alignItems: "center",
-        position: "absolute",
-        marginLeft: '-150px',
-        marginTop: '-100px',
-        top: '40%',
-        left: WIDTH > 480 ? '50%': '45%',
-        width: '300px',
-        minHeight: '200px',
-        padding: 16,
-        // margin: 16,
-        border: "2px solid",
-        borderColor: AppColors.lightgrey,
-        backgroundColor: "white",
-        borderRadius: 16,
-        zIndex: 25,
-      }}
+      css={styles.popup}
+      style={{overlay: {zIndex:25}}}
       contentLabel="Add To Collection Modal"
     >
-      <p css={{ fontWeight: "bolder", fontSize: 18 }}>Add To Collection</p>
-      <div css={{ display: "flex", alignItems: "center" }}>
+      <h1 css={styles.popupTitle}>Add To Collection</h1>
+      <h2 css={styles.popupContentTitle}>Add New Collection</h2>
+      <div css={styles.popupInput}>
         <AppInput
           value={collectionName}
           placeholder="Enter new collection name"
@@ -105,8 +88,6 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
           style={{ 
             width: "100%",
             margin: "4px 16px 8px 0px",
-            // border: `1px solid ${AppColors.pink400}`,
-            // borderRadius: '10px',
           }}
         />
         <AppButton 
@@ -117,41 +98,94 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
           }} 
         />
       </div>
-      <div css={{ display: "flex", flexWrap: "wrap", marginTop: 16 }}>
-        {state.collectionNames?.map((el, idx) => {
-          const isSelected = collectionOf.includes(el);
-          return (
-            <span
-              key={idx.toString()}
-              css={{
-                padding: 8,
-                borderRadius: 8,
-                border: "1px solid gray",
-                margin: 4,
-                color: isSelected ? "white" : AppColors.gray600,
-                backgroundColor: isSelected ? AppColors.pink400 : "white",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                if (isSelected) {
-                  setCollectionOf((prev) => prev.filter((val) => val !== el));
-                } else {
-                  setCollectionOf((prev) => [...prev, el]);
-                }
-              }}
-            >
-              {el}
-            </span>
-          );
-        })}
+      <div css={styles.popupContentContainer}>
+        <h2 css={styles.popupContentTitle}>Add to Saved Collection List</h2>
+        <div css={styles.popupContent}>
+          {state.collectionNames?.map((el, idx) => {
+            const isSelected = collectionOf.includes(el);
+            return (
+              <span
+                key={idx.toString()}
+                css={{
+                  padding: 8,
+                  borderRadius: 8,
+                  border: "1px solid gray",
+                  margin: 4,
+                  color: isSelected ? "white" : AppColors.gray600,
+                  backgroundColor: isSelected ? AppColors.pink400 : "white",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  if (isSelected) {
+                    setCollectionOf((prev) => prev.filter((val) => val !== el));
+                  } else {
+                    setCollectionOf((prev) => [...prev, el]);
+                  }
+                }}
+              >
+                {el}
+              </span>
+            );
+          })}
+        </div>
       </div>
       <AppButton
         title="SAVE"
         onClick={handleSaveToCollection}
-        style={{ width: "100%" }}
+        style={{ width: "50%" }}
       />
     </Modal>
   );
 };
+
+const styles = {
+  popup: {
+    display: "flex",
+    flexDirection: "column",
+    justifyConent: "center",
+    alignItems: "center",
+    position: "absolute",
+    marginLeft: '-150px',
+    marginTop: '-100px',
+    top: '40%',
+    left: WIDTH > 480 ? '50%': '45%',
+    width: '300px',
+    minHeight: '200px',
+    padding: 16,
+    // margin: 16,
+    border: "2px solid",
+    borderColor: AppColors.lightgrey,
+    backgroundColor: "white",
+    borderRadius: 16,
+    zIndex: 25,
+  },
+  popupTitle : { 
+    fontWeight: "bolder", 
+    fontSize: 20
+  },
+  popupInput : { 
+    display: "flex", 
+    alignItems: "center",
+    borderBottom: `1px solid ${AppColors.gray300}`,
+    marginBottom: 8,
+    paddingBottom: 8
+  },
+  popupContentContainer : {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  popupContentTitle: {
+    fontWeight: "bold", 
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  popupContent: { 
+    display: "flex", 
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    marginBottom: 8 
+  }
+}
 
 export default AddToCollectionModal;

@@ -5,6 +5,7 @@ import AnimeInfo from "./AnimeInfo";
 import AppButton from "./AppButton";
 import CollectionCard from "./CollectionCard";
 import CollectionOf from "./CollectionOf";
+import DeleteCollectionModal from "./DeleteCollectionModal";
 import Genres from "./Genres";
 import Header from "./Header";
 import Loading from "./Loading";
@@ -18,6 +19,7 @@ export {
   AppButton,
   CollectionCard,
   CollectionOf,
+  DeleteCollectionModal,
   Genres,
   Header,
   Loading,

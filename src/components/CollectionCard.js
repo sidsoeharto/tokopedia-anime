@@ -17,33 +17,22 @@ const CollectionCard = ({ name, confirmDelete }) => {
     );
     if (collectionOf?.length > 0) {
       return (
-        <img
-          alt={collectionOf[0].title.native}
-          src={collectionOf[0].coverImage?.large}
-          css={{
-            width: "10vh",
-            height: "10vh",
-            borderRadius: 8,
-            objectFit: "cover",
-            marginRight: 16,
-          }}
-        />
+        <div
+          css={styles.imageContainer}
+        >
+          <img
+            alt={collectionOf[0].title.native}
+            src={collectionOf[0].coverImage?.large}
+            css={styles.image}
+          />
+        </div>
       );
     } else {
       return (
         <div
-          css={{
-            width: "10vh",
-            height: "10vh",
-            borderRadius: 8,
-            marginRight: 16,
-            backgroundColor: AppColors.lightgrey,
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
-          }}
+          css={styles.imagePlaceholderContainer}
         >
-          <FontAwesomeIcon icon={solid("image")} color="grey" size="2x" />
+          <FontAwesomeIcon icon={solid("image")} color="grey" size="4x" css={styles.imagePlaceholder} />
         </div>
       );
     }
@@ -53,39 +42,95 @@ const CollectionCard = ({ name, confirmDelete }) => {
 
   return (
     <div
-      css={{
-        padding: 12,
-        border: "1px solid",
-        borderColor: "lightgrey",
-        borderRadius: 8,
-        margin: "8px 0px",
-        display: "flex",
-      }}
+      css={styles.card}
       onClick={() =>
         navigate(`/collections/${name}`, { state: { title: name } })
       }
     >
       {getCoverImage()}
-      <span
-        css={{
-          display: "block",
-          flex: 1,
-          fontWeight: "bold",
-        }}
+      <div
+        css={styles.contentContainer}
       >
-        {name}
-      </span>
-      <FontAwesomeIcon
-        icon={solid("trash")}
-        color="grey"
-        size='1x'
-        onClick={(e) => {
-          e.stopPropagation();
-          confirmDelete();
-        }}
-      />
+        <span
+          css={{
+            display: "block",
+            fontSize: 20,
+            flex: 1,
+            fontWeight: "bold",
+            marginTop: 4,
+          }}
+        >
+          {name}
+        </span>
+        <FontAwesomeIcon
+          icon={solid("trash")}
+          color="grey"
+          size='1x'
+          css={{
+            cursor: 'pointer',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            confirmDelete();
+          }}
+        />
+      </div>
     </div>
   );
 };
+
+const styles = {
+  card: {
+    margin: '1rem auto',
+    borderRadius: 20,
+    cursor: "pointer",
+    width: '200px',
+    display: "grid",
+    gridTemplateRows: "min-content auto",
+  },
+  imageContainer: {
+    boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    width: "100%",
+    height: '100%',
+    overflow: 'hidden',
+    position: 'relative',
+    borderRadius: 16,
+    zIndex: 2,
+  },
+  imagePlaceholderContainer: {
+    boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: "200px",
+    height: '320px',
+    overflow: 'hidden',
+    position: 'relative',
+    borderRadius: 16,
+    zIndex: 2,
+  },
+  image: {
+    objectFit: 'cover',
+    verticalAlign: 'text-top',
+  },
+  imagePlaceholder: {
+    objectFit: 'cover',
+    verticalAlign: 'text-top',
+  },
+  contentContainer: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 24,
+    padding: 16,
+    maxWidth: 'inherit',
+  }
+}
 
 export default CollectionCard;

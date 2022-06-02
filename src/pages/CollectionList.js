@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useContext, useState } from "react";
-import {AddCollectionModal, AppButton, CollectionCard} from "../components";
+import {AddCollectionModal, AppButton, CollectionCard, DeleteCollectionModal} from "../components";
 import {removeCollection} from "../store/actions";
 import Context from "../store/Context";
 
@@ -9,15 +9,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import AppColors from "../styles/AppColors";
 
+const WIDTH = window.innerWidth;
+
 const CollectionList = (props) => {
   const [state, dispatch] = useContext(Context.AppContext);
   const [open, setOpen] = useState(false);
+  // const [openDelete, setOpenDelete] = useState(false);
+  const [deleteName, setDeleteName] = useState('');
 
   const confirmDelete = (name) => {
-    if (window.confirm(`Are you sure want to delete ${name}?`)) {
-      dispatch(removeCollection(name));
-    }
+    dispatch(removeCollection(name));
+    console.log('asdf');
+
+    return setDeleteName('');
   };
+
   return (
     <div css={{ padding: 16, minHeight: '85vh' }}>
       <div css={{ justifyContent: "end", display: "flex" }}>
@@ -35,14 +41,24 @@ const CollectionList = (props) => {
           onClick={() => setOpen(true)} 
         />
       </div>
+      <div
+        css={{
+          display: 'grid',
+          gridTemplateColumns: WIDTH > 1024 ? 'repeat(3, minmax(0, 1fr))' : WIDTH > 480 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))',
+          columnGap: '0.125rem',
+          zIndex: 2,
+        }}
+      >
+        {state.collectionNames?.map((el, idx) => (
+          <CollectionCard 
+            key={idx.toString()} 
+            name={el} 
+            confirmDelete={()=>setDeleteName(el)} 
+          />
+        ))}
+      </div>
       <AddCollectionModal isOpen={open} onRequestClose={() => setOpen(false)} />
-      {state.collectionNames?.map((el, idx) => (
-        <CollectionCard 
-          key={idx.toString()} 
-          name={el} 
-          confirmDelete={()=>confirmDelete(el)} 
-        />
-      ))}
+      <DeleteCollectionModal isOpen={!!deleteName} name={deleteName} onRequestClose={() => setDeleteName('')} onDelete={confirmDelete}/>
     </div>
   );
 };

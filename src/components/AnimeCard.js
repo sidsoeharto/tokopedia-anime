@@ -86,8 +86,6 @@ const styles = {
   card: {
     margin: '1rem auto',
     borderRadius: 20,
-    // backgroundColor: AppColors.gray200,
-    // filter: "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
     cursor: "pointer",
     width: '200px',
     display: "grid",
@@ -107,7 +105,6 @@ const styles = {
   },
   image: {
     objectFit: 'cover',
-    // position: 'absolute',
     verticalAlign: 'text-top',
   },
   contentContainer: {
