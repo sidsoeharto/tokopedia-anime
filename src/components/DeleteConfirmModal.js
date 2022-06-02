@@ -7,7 +7,7 @@ import AppButton from "./AppButton";
 
 const WIDTH = window.innerWidth;
 
-const DeleteCollectionModal = ({ isOpen, name, onRequestClose, onDelete }) => {
+const DeleteConfirmModal = ({ isOpen, name, onRequestClose, onDelete }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -84,4 +84,4 @@ const styles = {
   }
 }
 
-export default DeleteCollectionModal;
+export default DeleteConfirmModal;

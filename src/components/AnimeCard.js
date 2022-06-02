@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Anime } from "../models/anime";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useNavigate, useParams } from "react-router-dom";
 import { removeFromCollection, updateToCollection } from "../store/actions";
@@ -12,35 +12,36 @@ import AppColors from "../styles/AppColors";
 const AnimeCard = ({ data, showDeleteButton }) => {
   const navigate = useNavigate();
   const [state, dispatch] = useContext(Context.AppContext);
+  const [deleteName, setDeleteName] = useState('');
   const params = useParams();
 
   const imageRef = useRef(null);
 
   const onDelete=()=>{
-    if(window.confirm(`Are you sure want to delete ${data.title.english??data.title.native}?`)){
+    // if(window.confirm(`Are you sure want to delete ${data.title.english??data.title.native}?`)){
       if(data.collectionOf?.length===1){
         dispatch(removeFromCollection(data.id))
       } else {
-        const updatedData = state.collections.map((v) => {
-          if (v.id === data.id) {
-            const collectionOf = data?.collectionOf?.filter((v)=> v!==params.name)
+        const updatedData = state.collections.map((el) => {
+          if (el.id === data.id) {
+            const collectionOf = data?.collectionOf?.filter((el)=> el.name!==params.name)
             return { ...data, collectionOf };
           } else {
-            return v;
+            return el;
           }
         });
         dispatch(updateToCollection(updatedData));
       }
-    }
+    // }
   }
 
   return (
     <div
       css={styles.card}
-      onClick={() => navigate(`/anime/${data.id}`, {state: {title: 'Detail Anime'}})}
     >
       <div
         css={styles.imageContainer}
+        onClick={() => navigate(`/anime/${data.id}`, {state: {title: 'Detail Anime'}})}
       >
         <img
           ref={imageRef}
@@ -52,17 +53,17 @@ const AnimeCard = ({ data, showDeleteButton }) => {
       <div
         css={styles.contentContainer}
       >
-        <div css={{display: "flex", flexGrow: 0, flexDirection: 'column', whiteSpace: 'initial', paddingRight: 12}}>
-          <span css={{ display: "flex", fontWeight: "bold", wordWrap: 'break-word' }}>
+        <div css={styles.contentBox}>
+          <span css={styles.title}>
             {data.title.english ?? data.title.native}
           </span>
-          <span css={{ fontSize: 12, color: "gray" }}>
+          <span css={styles.duration}>
             {data.duration} minutes
           </span>
         </div>
         {showDeleteButton && (
           <div
-            css={{display: "flex", justifyContent: 'center', alignItems: 'center'}}
+            css={styles.deleteContainer}
           >
             <FontAwesomeIcon
               icon={solid('trash')}
@@ -70,12 +71,18 @@ const AnimeCard = ({ data, showDeleteButton }) => {
               size="1x"
               onClick={(e) => {
                 e.stopPropagation();
-                onDelete()
+                setDeleteName(data.title.english??data.title.native)
               }}
             />
           </div>
         )}
       </div>
+      <DeleteConfirmModal 
+        isOpen={!!deleteName} 
+        name={deleteName} 
+        onRequestClose={() => setDeleteName('')} 
+        onDelete={onDelete}
+      />
     </div>
   );
 }
@@ -113,7 +120,11 @@ const styles = {
     marginBottom: 24,
     padding: 16,
     maxWidth: 'inherit',
-  }
+  },
+  contentBox: {display: "flex", flexGrow: 0, flexDirection: 'column', whiteSpace: 'initial', paddingRight: 12},
+  title: { display: "flex", fontWeight: "bold", wordWrap: 'break-word' },
+  duration: { fontSize: 12, color: "gray" },
+  deleteContainer: {display: "flex", justifyContent: 'center', alignItems: 'center'}
 }
 
 export default AnimeCard;

@@ -6,6 +6,8 @@ import AppButton from "./AppButton";
 import CollectionCard from "./CollectionCard";
 import CollectionOf from "./CollectionOf";
 import DeleteCollectionModal from "./DeleteCollectionModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
+import EditCollectionModal from "./EditCollectionModal";
 import Genres from "./Genres";
 import Header from "./Header";
 import Loading from "./Loading";
@@ -20,6 +22,8 @@ export {
   CollectionCard,
   CollectionOf,
   DeleteCollectionModal,
+  DeleteConfirmModal,
+  EditCollectionModal,
   Genres,
   Header,
   Loading,

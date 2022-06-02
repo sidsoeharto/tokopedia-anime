@@ -5,15 +5,14 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import Context from "../store/Context";
-import AppColors from "../styles/AppColors";
 
-const CollectionCard = ({ name, confirmDelete }) => {
+const CollectionCard = ({ data, confirmDelete }) => {
   const navigate = useNavigate();
   const [state] = useContext(Context.AppContext);
 
   const getCoverImage = () => {
-    const collectionOf = state.collections.filter((el) =>
-      el.collectionOf?.filter(e => e.name === name)
+    const collectionOf = state.collections?.filter((el) =>
+      el.collectionOf?.find(e => e.id === data.id)
     );
     if (collectionOf?.length > 0) {
       return (
@@ -44,7 +43,7 @@ const CollectionCard = ({ name, confirmDelete }) => {
     <div
       css={styles.card}
       onClick={() =>
-        navigate(`/collections/${name}`, { state: { title: name } })
+        navigate(`/collections/${data.id}`, { state: { title: data.name } })
       }
     >
       {getCoverImage()}
@@ -52,15 +51,9 @@ const CollectionCard = ({ name, confirmDelete }) => {
         css={styles.contentContainer}
       >
         <span
-          css={{
-            display: "block",
-            fontSize: 20,
-            flex: 1,
-            fontWeight: "bold",
-            marginTop: 4,
-          }}
+          css={styles.cardTitle}
         >
-          {name}
+          {data.name}
         </span>
         <FontAwesomeIcon
           icon={solid("trash")}
@@ -87,6 +80,13 @@ const styles = {
     width: '200px',
     display: "grid",
     gridTemplateRows: "min-content auto",
+  },
+  cardTitle: {
+    display: "block",
+    fontSize: 20,
+    flex: 1,
+    fontWeight: "bold",
+    marginTop: 4,
   },
   imageContainer: {
     boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',

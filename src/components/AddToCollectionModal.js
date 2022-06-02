@@ -8,6 +8,7 @@ import {
   removeFromCollection,
   updateToCollection,
 } from "../store/actions";
+import { v4 as uuidv4 } from 'uuid'
 import Context from "../store/Context";
 import AppColors from "../styles/AppColors";
 import AppButton from "./AppButton";
@@ -31,7 +32,7 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
       if (collectionNames?.filter(e => e.name === collectionName).length > 0) {
         setError("Collection name already exist");
       } else {
-        dispatch(addCollection({id: collectionNames.length+1, name: collectionName}));
+        dispatch(addCollection({id: uuidv4(), name: collectionName}));
         setCollectionName("");
       }
     }
@@ -41,7 +42,8 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
     if (collectionOf.length === 0) {
       dispatch(removeFromCollection(data.id));
     } else {
-      const isCollection = state.collections.find(
+      console.log(state.collections)
+      const isCollection = state.collections?.find(
         (el) => el.id === data.id
       );
       if (isCollection) {
@@ -102,19 +104,11 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
         <h2 css={styles.popupContentTitle}>Add to Saved Collection List</h2>
         <div css={styles.popupContent}>
           {state.collectionNames?.map((el, idx) => {
-            const isSelected = collectionOf.includes(el);
+            const isSelected = collectionOf.filter(e => e.id === el.id).length > 0;
             return (
               <span
                 key={idx.toString()}
-                css={{
-                  padding: 8,
-                  borderRadius: 8,
-                  border: "1px solid gray",
-                  margin: 4,
-                  color: isSelected ? "white" : AppColors.gray600,
-                  backgroundColor: isSelected ? AppColors.pink400 : "white",
-                  cursor: "pointer",
-                }}
+                css={styles.collectionButton}
                 onClick={() => {
                   if (isSelected) {
                     setCollectionOf((prev) => prev.filter((val) => val.name !== el.name));
@@ -185,7 +179,16 @@ const styles = {
     flexWrap: "wrap",
     justifyContent: "space-around",
     marginBottom: 8 
-  }
+  },
+  collectionButton: (isSelected) => ({
+    padding: 8,
+    borderRadius: 8,
+    border: "1px solid gray",
+    margin: 4,
+    color: isSelected ? "white" : AppColors.gray600,
+    backgroundColor: isSelected ? AppColors.pink400 : "white",
+    cursor: "pointer",
+  })
 }
 
 export default AddToCollectionModal;

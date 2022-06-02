@@ -7,6 +7,7 @@ import Context from "../store/Context";
 import AppColors from "../styles/AppColors";
 import AppButton from "./AppButton";
 import AppInput from "./AppInput";
+import { v4 as uuidv4 } from 'uuid';
 
 const WIDTH = window.innerWidth;
 
@@ -26,7 +27,7 @@ const AddCollectionModal = ({ isOpen, onRequestClose }) => {
         setError("Collection name already exist");
       } else {
         let obj = {
-          id: collectionNames.length+1, 
+          id: uuidv4(), 
           name: collectionName,
         }
         dispatch(addCollection(obj));

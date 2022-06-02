@@ -30,67 +30,28 @@ const AnimeDetail = (props) => {
 
   return (
     <div
-      css={{
-        position: 'relative',
-      }}
+      css={styles.mainContainer}
     >
-      <div css={{ 
-        display: 'flex',
-        flexDirection: WIDTH > 480 ? 'row' : 'column', 
-        padding: 16 
-      }}>
+      <div css={styles.container}>
         <div
-          css={{
-            height: "100%",
-            width: "100%", 
-            maxWidth: '400px',
-            margin: WIDTH > 480 ? 32 : 2,
-          }}
+          css={styles.imageContainer}
         >
           <img
             alt={media.title.native}
             src={media.coverImage?.large}
-            css={{ 
-              width: '100%',
-              objectFit: "cover",
-              borderRadius: 16, 
-              margin: 'auto',
-              boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',
-            }}
+            css={styles.image}
           />
-          <div css={{ 
-            marginTop: 16,
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '0.2rem 0.5rem',
-            flexDirection: WIDTH > 480 ? 'row' : 'column',  
-          }}>
+          <div css={styles.addToContainer}>
             <AppButton
-              title="Add to collection"
-              style={{ 
-                width: "100%",
-                padding: '0.75rem',
-              }}
-              onClick={() => setOpen(true)}
-            />
-            <AppButton
-              title="Remove from collection"
-              style={{ 
-                width: "100%", 
-                padding: '0.75rem',
-                backgroundColor: "gray" 
-              }}
+              title="Add to Collection"
+              style={styles.addToButton}
               onClick={() => setOpen(true)}
             />
           </div>
         </div>
         
         <div
-          css ={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: 16,
-          }}
+          css={styles.contentContainer}
         >
           <div css={{ display: "flex" }}>
             <div css={{ flex: 1 }}>
@@ -116,5 +77,45 @@ const AnimeDetail = (props) => {
     </div>
   );
 };
+
+const styles = {
+  mainContainer: {
+    position: 'relative',
+  },
+  container: { 
+    display: 'flex',
+    flexDirection: WIDTH > 480 ? 'row' : 'column', 
+    padding: 16 
+  },
+  imageContainer: {
+    height: "100%",
+    width: "100%", 
+    maxWidth: '400px',
+    margin: WIDTH > 480 ? 32 : 2,
+  },
+  image: { 
+    width: '100%',
+    objectFit: "cover",
+    borderRadius: 16, 
+    margin: 'auto',
+    boxShadow: '0 14px 30px rgba(0, 0, 0,.15),0 4px 4px rgba(0, 0, 0,.05)',
+  },
+  addToContainer: { 
+    marginTop: 16,
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '0.2rem 0.5rem',
+    flexDirection: WIDTH > 480 ? 'row' : 'column',  
+  },
+  addToButton: { 
+    width: "100%",
+    padding: '0.75rem',
+  },
+  contentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 16,
+  },
+}
 
 export default AnimeDetail;

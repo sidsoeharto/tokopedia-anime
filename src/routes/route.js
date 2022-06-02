@@ -8,7 +8,7 @@ export default function App() {
       <Route path="/" element={<AnimeList />} />
       <Route path="/anime/:id" element={<AnimeDetail />} />
       <Route path="/collections" element={<CollectionList />} />
-      <Route path="/collections/:name" element={<CollectionDetail />} />
+      <Route path="/collections/:id" element={<CollectionDetail />} />
     </Routes>
   )
 }

@@ -18,13 +18,7 @@ const Loading = (props) => {
 
   return (
     <div
-      css={{
-        flex: 1,
-        height: "80vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      css={styles.loadingContainer}
     >
       <div css={{ textAlign: "center" }}>
         <FontAwesomeIcon
@@ -35,12 +29,23 @@ const Loading = (props) => {
           `}
           color={AppColors.gray400}
         />
-        <p css={{ fontSize: 12, fontWeight: "bold", color: AppColors.gray400 }}>
+        <p css={styles.loadingText}>
           Loading...
         </p>
       </div>
     </div>
   );
 };
+
+const styles = {
+  loadingContainer: {
+    flex: 1,
+    height: "80vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loadingText: { fontSize: 12, fontWeight: "bold", color: AppColors.gray400 }
+}
 
 export default Loading;

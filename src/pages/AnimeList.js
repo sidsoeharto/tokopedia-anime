@@ -8,7 +8,6 @@ import { saveAnimeList, savePageInfo } from "../store/actions";
 import AnimeCard from "../components/AnimeCard";
 import { usePagination } from "../hooks/usePagination";
 import {Pagination, Loading} from "../components";
-// import Loading from "../../components/Loading";
 
 const WIDTH = window.innerWidth;
 
@@ -49,11 +48,7 @@ const AnimeList = (props) => {
         currentPage={variables.page}
         />
         <div
-          css={{
-            display: 'grid',
-            gridTemplateColumns: WIDTH > 1024 ? 'repeat(3, minmax(0, 1fr))' : WIDTH > 480 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))',
-            columnGap: '0.125rem',
-          }}
+          css={styles.grid}
         >
           {state.animeList?.map((el, idx) => {
             return <AnimeCard key={idx} data={el} />;
@@ -69,5 +64,13 @@ const AnimeList = (props) => {
     </div>
   );
 };
+
+const styles = {
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: WIDTH > 1024 ? 'repeat(3, minmax(0, 1fr))' : WIDTH > 480 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))',
+    columnGap: '0.125rem',
+  }
+}
 
 export default AnimeList;

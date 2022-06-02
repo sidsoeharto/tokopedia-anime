@@ -23,8 +23,8 @@ const CollectionList = (props) => {
   };
 
   return (
-    <div css={{ padding: 16, minHeight: '85vh' }}>
-      <div css={{ justifyContent: "end", display: "flex" }}>
+    <div css={styles.mainContainer}>
+      <div css={styles.buttonContainer}>
         <AppButton 
           style={{
             padding: '0.5rem 1rem'
@@ -40,17 +40,12 @@ const CollectionList = (props) => {
         />
       </div>
       <div
-        css={{
-          display: 'grid',
-          gridTemplateColumns: WIDTH > 1024 ? 'repeat(3, minmax(0, 1fr))' : WIDTH > 480 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))',
-          columnGap: '0.125rem',
-          zIndex: 2,
-        }}
+        css={styles.grid}
       >
         {state.collectionNames?.map((el, idx) => (
           <CollectionCard 
             key={idx.toString()} 
-            name={el.name} 
+            data={el} 
             confirmDelete={()=>setDeleteName(el.name)} 
           />
         ))}
@@ -60,5 +55,16 @@ const CollectionList = (props) => {
     </div>
   );
 };
+
+const styles = {
+  mainContainer: { padding: 16, minHeight: '85vh' },
+  buttonContainer: { justifyContent: "end", display: "flex" },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: WIDTH > 1024 ? 'repeat(3, minmax(0, 1fr))' : WIDTH > 480 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))',
+    columnGap: '0.125rem',
+    zIndex: 2,
+  }
+}
 
 export default CollectionList;

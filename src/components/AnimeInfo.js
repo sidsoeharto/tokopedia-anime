@@ -5,17 +5,10 @@ import AppColors from "../styles/AppColors";
 
 const Info = ({ title, value }) => (
   <div
-    css={{
-      flex: 1,
-      border: "1px solid lightgray",
-      borderRadius: 16,
-      margin: "0px 8px",
-      textAlign: "center",
-      padding: 12,
-    }}
+    css={styles.infoContainer}
   >
-    <span css={{ fontWeight: "bolder", display: "block" }}>{title}</span>
-    <span css={{ color: AppColors.gray400, fontSize: 14 }}>{value}</span>
+    <span css={styles.title}>{title}</span>
+    <span css={styles.infoVal}>{value}</span>
   </div>
 );
 
@@ -29,5 +22,18 @@ const AnimeInfo = ({ data }) => {
     </div>
   );
 };
+
+const styles = {
+  infoContainer: {
+    flex: 1,
+    border: "1px solid lightgray",
+    borderRadius: 16,
+    margin: "0px 8px",
+    textAlign: "center",
+    padding: 12,
+  },
+  title: { fontWeight: "bolder", display: "block" },
+  infoVal: { color: AppColors.gray400, fontSize: 14 }
+}
 
 export default AnimeInfo;
