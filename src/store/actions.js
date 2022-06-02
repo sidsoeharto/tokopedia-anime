@@ -1,6 +1,7 @@
 export const SAVE_ANIME_LIST = 'SAVE_ANIME_LIST';
 export const ADD_TO_COLLECTION = 'ADD_TO_COLLECTION';
 export const UPDATE_TO_COLLECTION = 'UPDATE_TO_COLLECTION';
+export const UPDATE_COLLECTION = 'UPDATE_TO_COLLECTION';
 export const REMOVE_FROM_COLLECTION = 'REMOVE_FROM_COLLECTION';
 export const ADD_COLLECTION = 'ADD_COLLECTION';
 export const REMOVE_COLLECTION = 'REMOVE_COLLECTION';
@@ -42,12 +43,19 @@ export function updateToCollection(data) {
   };
 }
 
+export function updateCollection(data) {
+  return {
+    type: UPDATE_COLLECTION,
+    payload: {
+      data
+    }
+  };
+}
+
 export function addCollection(name) {
   return {
     type: ADD_COLLECTION,
-    payload: {
-      name
-    }
+    payload:name
   };
 }
 

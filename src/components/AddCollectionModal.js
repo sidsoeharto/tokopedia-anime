@@ -22,10 +22,14 @@ const AddCollectionModal = ({ isOpen, onRequestClose }) => {
       setError("Cant't use special characters");
     } else {
       const { collectionNames } = state;
-      if (collectionNames?.includes(collectionName)) {
+      if (collectionNames?.filter(e => e.name === collectionName).length > 0) {
         setError("Collection name already exist");
       } else {
-        dispatch(addCollection(collectionName));
+        let obj = {
+          id: collectionNames.length+1, 
+          name: collectionName,
+        }
+        dispatch(addCollection(obj));
         setCollectionName("");
         onRequestClose();
       }

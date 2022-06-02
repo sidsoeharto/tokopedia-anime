@@ -13,7 +13,7 @@ const CollectionCard = ({ name, confirmDelete }) => {
 
   const getCoverImage = () => {
     const collectionOf = state.collections.filter((el) =>
-      el.collectionOf?.includes(name)
+      el.collectionOf?.filter(e => e.name === name)
     );
     if (collectionOf?.length > 0) {
       return (

@@ -21,7 +21,7 @@ const AnimeCard = ({ data, showDeleteButton }) => {
       if(data.collectionOf?.length===1){
         dispatch(removeFromCollection(data.id))
       } else {
-        const updatetedData = state.collections.map((v) => {
+        const updatedData = state.collections.map((v) => {
           if (v.id === data.id) {
             const collectionOf = data?.collectionOf?.filter((v)=> v!==params.name)
             return { ...data, collectionOf };
@@ -29,7 +29,7 @@ const AnimeCard = ({ data, showDeleteButton }) => {
             return v;
           }
         });
-        dispatch(updateToCollection(updatetedData));
+        dispatch(updateToCollection(updatedData));
       }
     }
   }
@@ -52,7 +52,7 @@ const AnimeCard = ({ data, showDeleteButton }) => {
       <div
         css={styles.contentContainer}
       >
-        <div css={{display: "flex", flexGrow: 0, flexDirection: 'column', whiteSpace: 'initial'}}>
+        <div css={{display: "flex", flexGrow: 0, flexDirection: 'column', whiteSpace: 'initial', paddingRight: 12}}>
           <span css={{ display: "flex", fontWeight: "bold", wordWrap: 'break-word' }}>
             {data.title.english ?? data.title.native}
           </span>

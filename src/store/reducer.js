@@ -35,12 +35,17 @@ export default function reducer(state = initialState, { type, payload }) {
     case actions.ADD_COLLECTION:
       return {
         ...state,
-        collectionNames: [...state.collectionNames, payload.name]
+        collectionNames: [...state.collectionNames, payload]
+      };
+    case actions.UPDATE_COLLECTION:
+      return {
+        ...state,
+        collectionNames: state.collectionNames.filter((el) => el.name !== payload.name)
       };
     case actions.REMOVE_COLLECTION:
       return {
         ...state,
-        collectionNames: state.collectionNames.filter((v) => v !== payload.name)
+        collectionNames: state.collectionNames.filter((el) => el.name !== payload.name)
       };
     case actions.SAVE_PAGE_INFO:
       return {

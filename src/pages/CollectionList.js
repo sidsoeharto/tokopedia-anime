@@ -50,8 +50,8 @@ const CollectionList = (props) => {
         {state.collectionNames?.map((el, idx) => (
           <CollectionCard 
             key={idx.toString()} 
-            name={el} 
-            confirmDelete={()=>setDeleteName(el)} 
+            name={el.name} 
+            confirmDelete={()=>setDeleteName(el.name)} 
           />
         ))}
       </div>

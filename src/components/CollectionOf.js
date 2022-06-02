@@ -10,7 +10,7 @@ const CollectionOf = ({ collectionOf }) => {
       {collectionOf.map((el, idx, arr) => {
           const isLast = idx === arr.length - 1
           return(
-            <span key={idx.toString()} css={{color: AppColors.gray400}}>{el}{!isLast&&`,`}&nbsp;</span>
+            <span key={idx.toString()} css={{color: AppColors.gray400}}>{el.name}{!isLast&&`,`}&nbsp;</span>
           )
       })}
     </div>

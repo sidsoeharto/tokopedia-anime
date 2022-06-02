@@ -20,7 +20,7 @@ const CollectionDetail = (props) => {
     >
       {state?.collections
         .filter((el) =>
-          el.collectionOf?.includes(params?.name)
+          el.collectionOf?.filter(e => e.name === params.name)
         )
         ?.map((el, idx) => {
           return <AnimeCard key={idx} data={el} showDeleteButton />;

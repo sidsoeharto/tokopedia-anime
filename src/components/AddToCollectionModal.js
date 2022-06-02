@@ -28,10 +28,10 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
       setError("Cant't use special characters");
     } else {
       const { collectionNames } = state;
-      if (collectionNames?.includes(collectionName)) {
+      if (collectionNames?.filter(e => e.name === collectionName).length > 0) {
         setError("Collection name already exist");
       } else {
-        dispatch(addCollection(collectionName));
+        dispatch(addCollection({id: collectionNames.length+1, name: collectionName}));
         setCollectionName("");
       }
     }
@@ -45,14 +45,14 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
         (el) => el.id === data.id
       );
       if (isCollection) {
-        const updatetedData = state.collections.map((el) => {
+        const updatedData = state.collections.map((el) => {
           if (el.id === data.id) {
             return { ...data, collectionOf };
           } else {
             return el;
           }
         });
-        dispatch(updateToCollection(updatetedData));
+        dispatch(updateToCollection(updatedData));
       } else {
         dispatch(addToCollection({ ...data, collectionOf }));
       }
@@ -117,13 +117,13 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
                 }}
                 onClick={() => {
                   if (isSelected) {
-                    setCollectionOf((prev) => prev.filter((val) => val !== el));
+                    setCollectionOf((prev) => prev.filter((val) => val.name !== el.name));
                   } else {
                     setCollectionOf((prev) => [...prev, el]);
                   }
                 }}
               >
-                {el}
+                {el.name}
               </span>
             );
           })}
