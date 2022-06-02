@@ -19,7 +19,6 @@ const CollectionList = (props) => {
 
   const confirmDelete = (name) => {
     dispatch(removeCollection(name));
-    console.log('asdf');
 
     return setDeleteName('');
   };
