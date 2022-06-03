@@ -7,25 +7,38 @@ import Context from "./store/Context";
 import {Header} from "./components";
 import AppColors from "./styles/AppColors";
 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: 'https://graphql.anilist.co/',
+  cache: new InMemoryCache()
+});
+
+
 function App() {
   return (
-    <Context.Provider>
-      <BrowserRouter>
-        <div css={{backgroundColor: AppColors.lightgrey}}>
-          <div
-            css={{
-              // maxWidth: 480,
-              margin: "0 auto",
-              display: "block",
-              backgroundColor: "white",
-            }}
-          >
-            <Header />
-            <Routes />
+    <ApolloProvider client={client}>
+      <Context.Provider>
+        <BrowserRouter>
+          <div css={{backgroundColor: AppColors.gray100}}>
+            <div
+              css={{
+                margin: "0 auto",
+                display: "block",
+                backgroundColor: "white",
+              }}
+            >
+              <Header />
+              <Routes />
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
-    </Context.Provider>
+        </BrowserRouter>
+      </Context.Provider>
+    </ApolloProvider>
   );
 }
 

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppButton Test should matches snapshot 1`] = `
+.emotion-0 {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f472b6;
+  border-width: 0;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 8px 0px;
+  cursor: pointer;
+  font-family: Overpass;
+}
+
+.emotion-1 {
+  color: #fafafa;
+  font-weight: bold;
+}
+
+<button
+  className="emotion-0"
+  data-testid="app-button"
+>
+  <span
+    className="emotion-1"
+  >
+    test
+  </span>
+</button>
+`;

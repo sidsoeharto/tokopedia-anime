@@ -6,6 +6,7 @@ import AppColors from "../styles/AppColors";
 const AppButton = ({ title, onClick, style, icon }) => {
   return (
       <button
+        data-testid='app-button'
         onClick={onClick}
         css={{
           padding: 8,
