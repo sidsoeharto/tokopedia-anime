@@ -35,6 +35,10 @@ const EditCollectionModal = ({ isOpen, onRequestClose, data }) => {
   };
 
   useEffect(() => {
+    setCollectionName(data.name);
+  }, [data]);
+
+  useEffect(() => {
     setError("");
   }, [collectionName]);
 

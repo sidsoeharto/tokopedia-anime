@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useContext, useState } from "react";
-import {AddCollectionModal, AppButton, CollectionCard, DeleteCollectionModal} from "../components";
+import {AddCollectionModal, AppButton, CollectionCard, DeleteCollectionModal, EditCollectionModal} from "../components";
 import {removeCollection} from "../store/actions";
 import Context from "../store/Context";
 
@@ -15,6 +15,7 @@ const CollectionList = (props) => {
   const [state, dispatch] = useContext(Context.AppContext);
   const [open, setOpen] = useState(false);
   const [deleteName, setDeleteName] = useState('');
+  const [editData, setEditData] = useState('');
 
   const confirmDelete = (name) => {
     dispatch(removeCollection(name));
@@ -46,12 +47,18 @@ const CollectionList = (props) => {
           <CollectionCard 
             key={idx.toString()} 
             data={el} 
-            confirmDelete={()=>setDeleteName(el.name)} 
+            confirmDelete={()=>setDeleteName(el.name)}
+            openEdit={()=>setEditData(el)}
           />
         ))}
       </div>
       <AddCollectionModal isOpen={open} onRequestClose={() => setOpen(false)} />
       <DeleteCollectionModal isOpen={!!deleteName} name={deleteName} onRequestClose={() => setDeleteName('')} onDelete={confirmDelete}/>
+      <EditCollectionModal 
+        isOpen={!!editData}
+        onRequestClose={() => setEditData('')}
+        data={editData}
+      />
     </div>
   );
 };

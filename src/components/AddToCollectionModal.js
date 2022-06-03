@@ -42,7 +42,6 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
     if (collectionOf.length === 0) {
       dispatch(removeFromCollection(data.id));
     } else {
-      console.log(state.collections)
       const isCollection = state.collections?.find(
         (el) => el.id === data.id
       );
@@ -108,7 +107,7 @@ const AddToCollectionModal = ({ isOpen, onRequestClose, data }) => {
             return (
               <span
                 key={idx.toString()}
-                css={styles.collectionButton}
+                css={styles.collectionButton(isSelected)}
                 onClick={() => {
                   if (isSelected) {
                     setCollectionOf((prev) => prev.filter((val) => val.name !== el.name));

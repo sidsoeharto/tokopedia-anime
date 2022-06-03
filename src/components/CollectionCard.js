@@ -5,8 +5,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import Context from "../store/Context";
+import AppColors from "../styles/AppColors";
 
-const CollectionCard = ({ data, confirmDelete }) => {
+const CollectionCard = ({ data, confirmDelete, openEdit }) => {
   const navigate = useNavigate();
   const [state] = useContext(Context.AppContext);
 
@@ -18,6 +19,9 @@ const CollectionCard = ({ data, confirmDelete }) => {
       return (
         <div
           css={styles.imageContainer}
+          onClick={() =>
+            navigate(`/collections/${data.id}`, { state: { title: data.name } })
+          }
         >
           <img
             alt={collectionOf[0].title.native}
@@ -30,6 +34,9 @@ const CollectionCard = ({ data, confirmDelete }) => {
       return (
         <div
           css={styles.imagePlaceholderContainer}
+          onClick={() =>
+            navigate(`/collections/${data.id}`, { state: { title: data.name } })
+          }
         >
           <FontAwesomeIcon icon={solid("image")} color="grey" size="4x" css={styles.imagePlaceholder} />
         </div>
@@ -42,9 +49,6 @@ const CollectionCard = ({ data, confirmDelete }) => {
   return (
     <div
       css={styles.card}
-      onClick={() =>
-        navigate(`/collections/${data.id}`, { state: { title: data.name } })
-      }
     >
       {getCoverImage()}
       <div
@@ -55,18 +59,37 @@ const CollectionCard = ({ data, confirmDelete }) => {
         >
           {data.name}
         </span>
-        <FontAwesomeIcon
-          icon={solid("trash")}
-          color="grey"
-          size='1x'
-          css={{
-            cursor: 'pointer',
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            confirmDelete();
-          }}
-        />
+        <div
+          css={styles.iconContainer}
+        >
+          <FontAwesomeIcon
+            icon={solid("trash")}
+            color={AppColors.gray400}
+            size='1x'
+            css={{
+              marginBottom: 12,
+              cursor: 'pointer',
+              fontSize: 20,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              confirmDelete();
+            }}
+          />
+          <FontAwesomeIcon
+            icon={solid("edit")}
+            color={AppColors.green300}
+            size='1x'
+            css={{
+              cursor: 'pointer',
+              fontSize: 20,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              openEdit();
+            }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -76,7 +99,6 @@ const styles = {
   card: {
     margin: '1rem auto',
     borderRadius: 20,
-    cursor: "pointer",
     width: '200px',
     display: "grid",
     gridTemplateRows: "min-content auto",
@@ -130,6 +152,10 @@ const styles = {
     marginBottom: 24,
     padding: 16,
     maxWidth: 'inherit',
+  },
+  iconContainer: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 }
 

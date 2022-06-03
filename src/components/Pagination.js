@@ -12,7 +12,7 @@ const Pagination = ({ pagination, currentPage, onClick }) => {
         icon={solid('chevron-left')}
         color={currentPage > 1 ? AppColors.green500 : AppColors.gray300}
         size='1x'
-        css={styles.chevronLeft}
+        css={styles.chevronLeft(currentPage)}
         onClick={() => {
           if (currentPage > 1) onClick(currentPage - 1);
         }}
@@ -45,7 +45,7 @@ const Pagination = ({ pagination, currentPage, onClick }) => {
         icon={solid('chevron-right')}
         color={currentPage < 1000 ? AppColors.green500 : AppColors.gray300}
         size='1x'
-        css={styles.chevronRight}
+        css={styles.chevronRight(currentPage)}
         onClick={() => {
           if (currentPage < 1000) onClick(currentPage + 1);
         }}
